@@ -41,7 +41,7 @@ class DFDCombatShotgun : DoomedForDeathWeapon replaces Shotgun
         RSHT G 2 
         {
         A_Startsound("Weapons/riotpumpdown");
-        A_FireProjectile("ShotgunCasing");
+        A_FireProjectile("ShotgunCasing",0,0);
         }
         RSHT H 2 A_WeaponOffset(-24,0,WOF_ADD|WOF_INTERPOLATE);
         RSHT I 3 ;
