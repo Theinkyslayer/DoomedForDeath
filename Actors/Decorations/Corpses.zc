@@ -1,0 +1,53 @@
+class MarineCorpse : Actor replaces Deadmarine
+{
+    Default
+    {
+        Health 10;
+        GibHealth 0;
+        +SHOOTABLE
+
+    }
+
+    
+    States
+    {
+        Spawn:
+        TNT1 A 0 NoDelay A_Jump(256, "Corpse1","Corpse2");
+        Stop;
+        Corpse1:
+        PLAY N -1 ;
+        Stop;
+        Corpse2:
+        DEDP A -1 ;
+        Stop;
+        Death:
+        Play N 0
+        {
+            A_SpawnDebris("Guts", False, 1.4, 1.1);
+            A_SpawnDebris("Guts", False, 1.4, 1.1);
+            A_SpawnDebris("NashGoreGibsSpawnable", False, 1.4, 1.1);
+            A_SpawnDebris("NashGoreGibsSpawnable", False, 1.4, 1.1);
+            A_SpawnDebris("NashGoreGibsSpawnable", False, 1.4, 1.1);
+            A_SpawnDebris("NashGoreGibsSpawnable", False, 1.4, 1.1);
+            A_SpawnItemEx("Blood");
+            A_SpawnItemEx("Blood");
+            A_SpawnItemEx("Blood");
+            A_Playsound("misc/gibbed");
+        }
+        Stop;
+        XDeath:
+        Play N 0
+        {
+            A_SpawnDebris("Guts", False, 1.4, 1.1);
+            A_SpawnDebris("Guts", False, 1.4, 1.1);
+            A_SpawnDebris("NashGoreGibsSpawnable", False, 1.4, 1.1);
+            A_SpawnDebris("NashGoreGibsSpawnable", False, 1.4, 1.1);
+            A_SpawnDebris("NashGoreGibsSpawnable", False, 1.4, 1.1);
+            A_SpawnItemEx("Blood");
+            A_SpawnItemEx("Blood");
+            A_SpawnItemEx("Blood");
+            A_Playsound("misc/gibbed");
+        }
+        Stop;
+    }
+}

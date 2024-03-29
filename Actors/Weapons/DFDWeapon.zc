@@ -1,0 +1,10 @@
+class DoomedForDeathWeapon : Weapon
+{
+    Default
+    {
+        Weapon.BobStyle "Smooth";
+        Weapon.BobRangeX 0.7;
+        Weapon.BobRangeY 0.7;
+        Weapon.Bobspeed 1.5;
+    }
+}

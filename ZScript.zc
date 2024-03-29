@@ -1,0 +1,45 @@
+version "4.11.3"
+
+#include "Actors/Player.zc"
+
+//WEAPONS
+#include "Actors/Weapons/DFDWeapon.zc"
+#include "Actors/Weapons/GrenadeLauncher.zc"
+#include "Actors/Weapons/Magnum.zc"
+#include "Actors/Weapons/Shotgun.zc"
+#include "Actors/Weapons/Chainsaw.zc"
+////////////////////////////////////////////
+
+//EFFECTS
+#include "Actors/Effects/MonsterSpecificGibs.zc"
+#include "Actors/Effects/Casings.zc"
+////////////////////
+
+//Monsters
+#include "Actors/Monsters/Imp.zc"
+#include "Actors/Monsters/Cybruiser.zc"
+////////////////////
+
+//Decorations
+#include "Actors/Decorations/Barrels.zc"
+#include "Actors/Decorations/Corpses.zc"
+////////////////////
+
+//NASHGORE
+#include "Actors/Nashgore/NashGoreCommon.zc"
+#include "Actors/Nashgore/NashGoreStatics.zc"
+#include "Actors/Nashgore/NashGoreHandler.zc"
+#include "Actors/Nashgore/NashGoreBlood.zc"
+#include "Actors/Nashgore/NashGoreBloodPlane.zc"
+#include "Actors/Nashgore/NashGoreGibs.zc"
+#include "Actors/Nashgore/NashGoreCrushedGibs.zc"
+#include "Actors/Nashgore/NashGoreSquishyGibs.zc"
+#include "Actors/Nashgore/NashGoreIceChunk.zc"
+#include "Actors/Nashgore/NashGoreLiquidBlood.zc"
+#include "Actors/Nashgore/NashGoreWallBlood.zc"
+#include "Actors/Nashgore/NashGoreActor.zc"
+#include "Actors/Nashgore/NashGoreMenu.zc"
+//////////////////////////////////////////////
+
+// global constants
+const STAT_NashGore_Gore = Thinker.STAT_USER + 1;

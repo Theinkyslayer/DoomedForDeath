@@ -1,0 +1,66 @@
+
+//pickups
+MEDIA = "MEDIA"
+STIMA = "STIMA"
+AMMOA = "AMMOA"
+CLIPA = "CLIPA"
+PSTRA = "PSTRA"
+SBOXA = "SBOXA"
+SHELA = "SHELA"
+PVISA = "PVISA" {droppedspin = 25  spin = 25 placedspin = 25}
+PVISB = "PVISB" {droppedspin = 25  spin = 25 placedspin = 25}
+
+//ARMOR BONUS
+BON2A = "BON2A" {droppedspin = 25  spin = 25 placedspin = 25}
+BON2B = "BON2B" {droppedspin = 25  spin = 25 placedspin = 25}
+BON2C = "BON2C" {droppedspin = 25  spin = 25 placedspin = 25}
+BON2D = "BON2D" {droppedspin = 25  spin = 25 placedspin = 25}
+//////////////
+
+//HEALTH BONUS
+BON1A = "BON1A" {droppedspin = 25  spin = 25 placedspin = 25}
+BON1B = "BON1B" {droppedspin = 25  spin = 25 placedspin = 25}
+BON1C = "BON1C" {droppedspin = 25  spin = 25 placedspin = 25}
+BON1D = "BON1D" {droppedspin = 25  spin = 25 placedspin = 25}
+//////////////
+
+//SECURITY ARMOR
+ARM1A = "ARM1A" {droppedspin = 35  spin = 35 placedspin = 35}
+ARM1B = "ARM1B" {droppedspin = 35  spin = 35 placedspin = 35}
+ARM2A = "ARM2A" {droppedspin = 35  spin = 35 placedspin = 35}
+ARM2B = "ARM2B" {droppedspin = 35  spin = 35 placedspin = 35}
+///////////
+
+//SOULSPHERE
+SOULA = "SOULA" {droppedspin = 35  spin = 35 placedspin = 35}
+SOULB = "SOULB" {droppedspin = 35  spin = 35 placedspin = 35}
+SOULC = "SOULC" {droppedspin = 35  spin = 35 placedspin = 35}
+SOULD = "SOULD" {droppedspin = 35  spin = 35 placedspin = 35}
+//////////
+
+
+//barrel
+BAR1A = "BAR1A"
+BAR1B = "BAR1B"
+////
+
+//keys
+RKEYA = "RKEYA" {droppedspin = 35  spin = 35 placedspin = 35}
+RKEYB = "RKEYB" {droppedspin = 35  spin = 35 placedspin = 35}
+BKEYA = "BKEYA" {droppedspin = 35  spin = 35 placedspin = 35}
+BKEYB = "BKEYB" {droppedspin = 35  spin = 35 placedspin = 35}
+YKEYA = "YKEYA" {droppedspin = 35  spin = 35 placedspin = 35}
+YKEYB = "YKEYB" {droppedspin = 35  spin = 35 placedspin = 35}
+//////
+
+
+//weapons
+SHOTA = "SHOTA" {droppedspin = 25  spin = 25 placedspin = 25}
+SGN2A = "SGN2A" {droppedspin = 25  spin = 25 placedspin = 25}
+GLAUA = "GLAUA" {droppedspin = 25  spin = 25 placedspin = 25}
+///////
+
+//decorations
+COLUA = "COLUA"
+CANDA = "CANDA"
+////////

@@ -1,0 +1,195 @@
+class Impster : Actor replaces Doomimp
+{
+	Default
+	{
+		Health 60;
+		Radius 20;
+		Height 56;
+		Mass 100;
+		Speed 16;
+		PainChance 200;
+		Monster;
+		+FLOORCLIP
+		SeeSound "imp/sight";
+		PainSound "imp/pain";
+		DeathSound "imp/death";
+		ActiveSound "imp/active";
+		HitObituary "$OB_IMPHIT";
+		Obituary "$OB_IMP";
+		Tag "$FN_IMP";
+	}
+    void A_SpawnGibs ()
+    {
+    int num = random(1,100);
+    if (num >= 51)
+    {
+        A_SpawnDebris("ImpHead", False, 2.6, 1.0);
+        A_SpawnDebris("ImpArm", False, 2.6, 1.0); 
+        A_SpawnDebris("ImpLeg", False, 2.6, 1.0);
+        A_SpawnDebris("ImpLeg", False, 2.6, 1.0);
+    }
+    else
+    {
+        A_SpawnDebris("ImpArm", False, 3.1, 1.2); 
+        A_SpawnDebris("ImpArm", False, 3.1, 1.2); 
+        A_SpawnDebris("ImpLeg", False, 3.1, 1.2);
+    }
+    }
+
+    void A_ExtraAttackCheck ()
+    {
+    int num = random(1,100);
+    if (num >= 51)
+    {
+        A_CustomComboAttack("DoomImpBall", 32, 3 * random(1, 8), "imp/melee");
+    }
+    }
+	States
+	{
+	Spawn:
+		TROO AB 10 A_Look;
+		Loop;
+	See:
+		TROO AABBCCDD 3 A_Chase;
+		Loop;
+	Melee:
+	Missile:
+		TROO EF 8 A_FaceTarget;
+		TROO G 6 A_CustomComboAttack("DoomImpBall", 32, 3 * random(1, 8), "imp/melee");
+        TROO G 2 A_FaceTarget();
+        TROO G 6 A_ExtraAttackCheck;
+        TROO G 2 A_FaceTarget();
+        TROO G 6 A_ExtraAttackCheck;
+		Goto See;
+	Pain:
+		TROO H 2;
+		TROO H 2 A_Pain;
+		Goto See;
+	Death:
+		TROO I 8;
+		TROO J 8 A_Scream;
+		TROO K 6;
+		TROO L 6 A_NoBlocking;
+		TROO M -1;
+		Stop;
+	Death.Blade:
+		TROO I 5;
+		TROO J 2;
+		TNT1 A 0
+        {
+            A_XScream();
+			//A_SpawnProjectile("ImpTopHalf");
+			//A_SpawnProjectile("ImpBottomHalf");
+			A_SpawnDebris("ImpTopHalf", False, 1.2, random(1.5,1.8));
+			A_SpawnDebris("ImpBottomHalf", False, 0, 0.1);
+            A_SpawnDebris("Guts", False, 1.4, 1.1);
+			//A_SpawnItemEx("ImpBottomHalf",0,0,-10);
+			A_playsound("misc/gibbed");
+			A_NoBlocking();
+        }
+		Stop;
+	XDeath:
+		TROO N 5;
+		TROO O 5 
+        {
+            A_XScream();
+            A_SpawnGibs();
+        }
+		TROO P 5;
+		TROO Q 5 A_NoBlocking;
+		TROO RST 5;
+		TROO U -1;
+		Stop;
+	Raise:
+		TROO ML 8;
+		TROO KJI 6;
+		Goto See;
+	}
+}
+
+class DoomImpBallNew : Actor replaces DoomImpBall
+{
+ Default
+ {
+   Radius 6;
+   Height 8;
+   Speed 25;
+   FastSpeed 35;
+   Damage 6;
+   Projectile;
+   +RANDOMIZE
+   +ZDOOMTRANS
+   RenderStyle "Add";
+   Alpha 1;
+   SeeSound "imp/attack";
+   DeathSound "imp/shotx";
+ }
+ States
+ {
+ Spawn:
+   BAL1 AB 4 BRIGHT;
+   Loop;
+ Death:
+   BAL1 CDE 3 BRIGHT;
+   Stop;
+ }
+}
+
+class ImpTopHalf : Actor
+{
+	Default
+	{
+		Health 1;
+		Gravity 0.875;
+		+MISSILE
+		+NOBLOCKMAP
+		+THRUACTORS
+		+NOTELEPORT
+		+CANBOUNCEWATER
+		+FLOORCLIP
+		+MOVEWITHSECTOR
+		+FORCEXYBILLBOARD
+		-SOLID
+		DeathSound "Nashgore/gibbounce";
+	}
+	States
+	{
+		Spawn:
+		IMPT A 3
+		{
+		}
+		IMPT A 0
+		{
+		}
+		Goto Looping;
+		Looping:
+		"####" A 1 A_SpawnItemEx("Blood");
+		"####" A 9;
+		Loop;
+		Death:
+		"####" B -1
+		{
+			A_SpawnItemEx("NashGoreBloodFloorSplash",
+				frandom(-32, 32), frandom(-32, 32),
+				flags: SXF_TRANSFERTRANSLATION | SXF_ABSOLUTEPOSITION | SXF_NOCHECKPOSITION, 220);
+		}
+		Stop;
+	}
+}
+
+class ImpBottomHalf : ImpTopHalf
+{
+	States
+	{
+		Spawn:
+		IMPB A 3
+		{
+			bNoGravity = true;
+		}
+		IMPB A 0
+		{
+			bNoGravity = False;
+		}
+		Goto Looping;
+	}
+}

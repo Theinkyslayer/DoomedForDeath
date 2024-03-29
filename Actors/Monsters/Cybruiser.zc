@@ -1,0 +1,147 @@
+Class Cybruiser : BaronOfHell
+{
+  Default
+  {
+    Health 2200;
+    Radius 24;
+    Height 64;
+    Mass 1000;
+    Speed 30;
+    PainChance 20;
+    Obituary "%o was blown away by a Cybruiser.";
+    HitObituary "%o was smashed by a Cybruiser.";
+    SeeSound "monster/brusit";
+    PainSound "baron/pain";
+    DeathSound "monster/brudth";
+    Monster;
+    +FloorClip
+    +MissileMore
+    +Boss
+    +DontHarmClass
+  }
+  
+
+
+   void A_ExtraAttackCheck ()
+    {
+    int num = random(1,100);
+    if (num >= 51)
+    {
+        A_MonsterRail();
+    }
+    else
+    {
+      A_SpawnProjectile("BruiserMissile",38,15,0,0);
+    }
+    }
+
+  States
+  {
+  Spawn:
+    CBRU AB 10 A_Look();
+    Loop;
+  See:
+    CBRU A 1 A_Playsound("monster/bruwlk");
+    CBRU A 2 A_Chase();
+    CBRU A 3 A_Chase();
+    CBRU BB 3 A_Chase();
+    CBRU C 1 A_Playsound("monster/bruwlk");
+    CBRU C 2 A_Chase();
+    CBRU C 3 A_Chase();
+    CBRU DD 3 A_Chase();
+    Loop;
+  Missile:
+    CBRU E 5 A_FaceTarget();
+    CBRU F 12 Bright A_SpawnProjectile("BruiserMissile",38,15,0,0);
+    CBRU E 5 A_FaceTarget();
+    CBRU F 12 Bright A_SpawnProjectile("BruiserMissile",38,15,0,0);
+    CBRU E 5 A_FaceTarget();
+    CBRU F 12 Bright A_SpawnProjectile("BruiserMissile",38,15,0,0);
+    CBRU E 5 A_FaceTarget();
+    CBRU F 12 Bright A_SpawnProjectile("BruiserMissile",38,15,0,0);
+    CBRU E 5 A_FaceTarget();
+    CBRU F 12 Bright A_ExtraAttackCheck();
+    Goto See;
+  Melee:
+    CBRU GH 8 A_FaceTarget();
+    CBRU I 8 A_CustomMeleeAttack(10*random(1,8), "baron/melee");
+    Goto See;
+  Pain:
+    CBRU J 2;
+    CBRU J 2 A_Pain();
+    Goto See;
+  Death:
+    CBRU K 6 Bright A_Scream();
+    CBRU LMN 6 Bright;
+    CBRU O 6 Bright A_NoBlocking();
+    CBRU QR 6 Bright;
+    CBRU S 6;
+    CBRU T -1 
+    {
+      A_BossDeath();
+      A_SpawnItemEx("NashGoreGibs");
+      A_SpawnItemEx("NashGoreGibs");
+      A_SpawnItemEx("NashGoreGibs");
+    }
+    Stop;
+  }
+}
+
+Class BruiserMissile : Actor
+{
+  Default
+  {
+    Radius 8;
+    Height 12;
+    Speed 40;
+    Damage 40;
+    DamageType "Fire";
+    Scale 1.0;
+    RenderStyle "Normal";
+    SeeSound "monster/brufir";
+    DeathSound "weapons/hellex";
+    Decal "Scorch";
+    Projectile;
+    +ThruGhost
+  }
+
+  States
+  {
+  Spawn:
+    FBRS A 1 Bright;
+    FBRS A 1 Bright A_SpawnItemEx("BruiserTrail",0,0,0,0,0,0,0,128);
+    Loop;
+    Death:
+    DEXP B 0 Bright 
+    {
+    A_NoGravity();
+    Radius_Quake (2,17,0,16,0);
+    }
+    DEXP B 0 Bright A_SetTranslucent(0.5, 1);
+    DEXP ABCDEFGHIJ 2 Bright A_Explode(256, 160, 1);
+    DEXP K 2 Bright ;
+    DEXP L 2 BRIGHT;
+    Stop;
+  }
+}
+
+Class BruiserTrail : Actor
+{
+  Default
+  {
+    Radius 3;
+    Height 3;
+    RenderStyle "Translucent";
+    Alpha 0.67;
+    Projectile;
+  }
+
+  States
+  {
+  Spawn:
+    TNT1 A 3 Bright;
+    PUFF ABCD 4 BRIGHT;
+    Stop;
+  }
+}
+

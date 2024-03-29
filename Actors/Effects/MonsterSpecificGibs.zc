@@ -1,0 +1,107 @@
+class LimbGib : Actor
+{
+    Default
+    {
+        Radius 8;
+		Height 4;
+        Health 1;
+		Gravity 0.875;
+		BounceType 'Doom';
+		BounceFactor 0.5;
+		BounceSound "nashgore/gibbounce";
+		+MISSILE
+		+NOBLOCKMAP
+		+THRUACTORS
+		+NOTELEPORT
+		+CANBOUNCEWATER
+		+FLOORCLIP
+		+MOVEWITHSECTOR
+		+FORCEXYBILLBOARD
+		-SOLID
+        +ROLLSPRITE
+        +ROLLCENTER
+    }
+
+    States
+    {
+        Spawn:
+        TNT1 A 0 NoDelay A_Jump(256, "Gib1", "Gib2", "Gib3");
+        Stop;
+        Gib1:
+        Goto SpawnLoop;
+        Gib2:
+        Goto SpawnLoop;
+        Gib3:
+        Goto SpawnLoop;
+        SpawnLoop:
+        "####" A 1 A_SetRoll(random(0, 359));
+        "####" A 4;
+        Loop;
+        Death:
+        "####" A 0
+		{
+			class<Actor> cls;
+			if (nashgore_bloodtype == 0)		cls = "NashGoreBloodSpot";
+			else if (nashgore_bloodtype == 1)	cls = "NashGoreBloodSpotClassic";
+			A_SpawnItemEx(cls, flags: (NashGoreBloodBase.BLOOD_FLAGS | SXF_TRANSFERPOINTERS) & ~SXF_NOCHECKPOSITION, 150);
+		}
+		"####" AAAAAAAAAA 1
+		{
+			A_SpawnItemEx("NashGoreBloodFloorSplashSpawner",
+				0, 0, 0,
+				frandom(-4.0, 4.0), frandom(-4.0, 4.0), frandom(1.0, 4.0),
+				frandom(0, 360), NashGoreBlood.BLOOD_FLAGS, 175);
+		}
+		"####" A -1;
+        Stop;
+    }
+}
+
+
+class ImpArm : LimbGib
+{
+    States
+    {
+        Gib1:
+        IMPA A 0;
+        Goto SpawnLoop;
+        Gib2:
+        IMA2 A 0;
+        Goto SpawnLoop;
+        Gib3:
+        IMA3 A 0;
+        Goto SpawnLoop;
+    }
+}
+
+class ImpHead : LimbGib
+{
+    States
+    {
+        Gib1:
+        IMPH A 0;
+        Goto SpawnLoop;
+        Gib2:
+        IMH2 A 0;
+        Goto SpawnLoop;
+        Gib3:
+        IMH3 A 0;
+        Goto SpawnLoop;
+    }
+}
+
+Class ImpLeg : LimbGib
+{
+    States
+    {
+        Gib1:
+        IMPL A 0;
+        Goto SpawnLoop;
+        Gib2:
+        IML2 A 0;
+        Goto SpawnLoop;
+        Gib3:
+        IML3 A 0;
+        Goto SpawnLoop;
+    }
+}

@@ -1,0 +1,122 @@
+Class GrenadeLauncher : DoomedForDeathWeapon
+{
+  Default
+  {
+    //$Title Grenade Launcher
+    Weapon.AmmoType "RocketAmmo";
+    Weapon.AmmoGive 2;
+    Weapon.AmmoUse 1;
+    Weapon.AmmoType2 "RocketAmmo";
+    Weapon.AmmoUse2 1;
+    Weapon.SlotNumber 5;
+    Weapon.BobStyle "Smooth";
+    Weapon.BobRangeX 0.7;
+    Weapon.Bobspeed 1.4;
+    Inventory.PickupMessage "You got the Grenade Launcher!";
+    Inventory.PickupSound "Misc/W_PkUp";
+    Weapon.SelectionOrder 2600;
+    Weapon.Kickback 600;
+  }
+
+  States
+  {
+  Spawn:
+    GLAU A -1 ;
+    Loop;
+  Select:
+    TNT1 AA 0 A_Raise();
+    GLAG A 1;
+    Loop;
+  Deselect:
+    TNT1 AA 0 A_Lower();
+    GLAG A 1 ;
+    Loop;
+  Ready:
+    GLAG A 1 A_WeaponReady();
+    Loop;
+  Fire:
+    //GLAG A 2 A_weaponoffset(0,0);
+    GLAG B 0 A_GunFlash();
+    GLAG B 0 A_StartSound("Weapons/GrenadeFire");
+    GLAG B 2 A_FireProjectile("DFDGrenade", 0, 1 , 0, 0);
+    TNT1 A 0 A_SetPitch(pitch+1.5);
+    GLAG B 1 A_WeaponOffset(0,-2,WOF_ADD);
+    GLAG B 1 A_WeaponOffset(0,-3,WOF_ADD);
+    GLAG B 0 A_WeaponOffset(0,5, WOF_ADD);
+    GLAG I 0 A_SetPitch(pitch-0.7);
+    GLAG A 0 A_CheckReload();
+    GLAG CD 2;
+    GLAG E 2;
+    GLAG F 2 A_StartSound("Weapons/GrenadeOpen");
+    GLAG GHI 1;
+    GLAG JK 1 A_StartSound("Weapons/GrenadeLoad");
+    GLAG LM 3;
+    GLAG N 3 A_StartSound("Weapons/GrenadeClose");
+    GLAG OPQRS 3;
+    GLAG A 0 A_Refire();
+    Goto Ready;
+  Flash:
+    TNT1 A 2 A_Light1();
+    TNT1 A 2 A_Light2();
+    TNT1 A 0 A_Light0();
+    Stop;
+  }
+}
+
+Class DFDGrenade : Actor
+{
+  Default
+  {
+    Radius 11;
+    Height 8;
+    Speed 30;
+    DamageFunction (15*random(1,16));
+    BounceFactor 0.8;
+    BounceCount 6;
+    ReactionTime 139;
+    Seesound "Weapons/GrenadeBounce";
+    Deathsound "Weapons/GEXPLO";
+    PROJECTILE;
+    //+HEXENBOUNCE
+    +NOGRAVITY
+    +EXPLODEONWATER
+  }
+
+  States
+  {
+  Spawn:
+    GRND A 0 A_CountDown();
+    GRND A 7 A_SpawnProjectile("GrenadePuff", 3, 0, 0, CMF_AIMOFFSET);
+    GRND A 0 
+    {
+      bNOGRAVITY = false;
+    }
+    Loop;
+  Death:
+    DEXP B 0 Bright 
+    {
+    A_NoGravity();
+    Radius_Quake (2,17,0,16,0);
+    }
+    DEXP B 0 Bright A_SetTranslucent(0.5, 1);
+    DEXP ABCDEFGHIJ 2 Bright A_Explode(256, 160, 1);
+    DEXP K 2 Bright ;
+    DEXP L 2 BRIGHT;
+    Stop;
+  }
+}
+
+Class GrenadePuff : BulletPuff
+{
+  Default
+  {
+    +ClientSideOnly
+  }
+
+  States
+  {
+  Spawn:
+    PUFF ABCD 4;
+    Stop;
+  }
+}
