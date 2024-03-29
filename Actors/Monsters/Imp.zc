@@ -36,6 +36,19 @@ class Impster : Actor replaces Doomimp
     }
     }
 
+	void A_ShottyDeath ()
+    {
+    int num = random(1,100);
+    if (num >= 75)
+    {
+		SetState(FindState("DeathShotgunReal")); 
+    }
+    else
+    {
+		SetState(FindState("Death")); 
+    }
+    }
+
     void A_ExtraAttackCheck ()
     {
     int num = random(1,100);
@@ -80,14 +93,35 @@ class Impster : Actor replaces Doomimp
             A_XScream();
 			//A_SpawnProjectile("ImpTopHalf");
 			//A_SpawnProjectile("ImpBottomHalf");
-			A_SpawnDebris("ImpTopHalf", False, 1.2, random(1.5,1.8));
+			A_SpawnDebris("ImpTopHalf", False, 1.2, random(int(1.5),int(1.8)));
 			A_SpawnDebris("ImpBottomHalf", False, 0, 0.1);
             A_SpawnDebris("Guts", False, 1.4, 1.1);
 			//A_SpawnItemEx("ImpBottomHalf",0,0,-10);
-			A_playsound("misc/gibbed");
+			A_StartSound("misc/gibbed");
 			A_NoBlocking();
         }
 		Stop;
+	Death.Shotgun:
+		TNT1 A 0 A_ShottyDeath();
+		Stop;
+	DeathShotgunReal:
+		TROO I 5;
+		TROO J 2;
+		TNT1 A 0
+        {
+            A_XScream();
+			//A_SpawnProjectile("ImpTopHalf");
+			//A_SpawnProjectile("ImpBottomHalf");
+			A_SpawnDebris("ImpBottomHalf", False, 0, 0.1);
+            A_SpawnDebris("Guts", False, 1.4, 1.1);
+			A_SpawnDebris("ImpArm", False, 3.1, 1.2); 
+			A_SpawnDebris("ImpHead", False, 2.6, 1.0);
+        	A_SpawnDebris("ImpArm", False, 2.6, 1.0); 
+			//A_SpawnItemEx("ImpBottomHalf",0,0,-10);
+			A_StartSound("misc/gibbed");
+			A_NoBlocking();
+        }
+	Stop;
 	XDeath:
 		TROO N 5;
 		TROO O 5 

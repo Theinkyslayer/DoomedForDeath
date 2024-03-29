@@ -30,7 +30,7 @@ class DFDCombatShotgun : DoomedForDeathWeapon replaces Shotgun
         RSHT A 2;
         RSHT A 8 
         {
-        A_FireBullets (3.6, 3.6, 9, 7, "BulletPuff");
+        A_FireBullets (3.6, 3.6, 9, 7, "ShottyPuff");
         A_Overlay(PSP_FLASH, "Flash");
         }
         RSHT B 4 A_WeaponOffset(-24,0,WOF_ADD|WOF_INTERPOLATE);
@@ -38,7 +38,11 @@ class DFDCombatShotgun : DoomedForDeathWeapon replaces Shotgun
         RSHT D 3;
         RSHT E 3 A_WeaponOffset(-24,0,WOF_ADD|WOF_INTERPOLATE);
         RSHT F 2;
-        RSHT G 2 A_Startsound("Weapons/riotpumpdown");
+        RSHT G 2 
+        {
+        A_Startsound("Weapons/riotpumpdown");
+        A_FireProjectile("ShotgunCasing");
+        }
         RSHT H 2 A_WeaponOffset(-24,0,WOF_ADD|WOF_INTERPOLATE);
         RSHT I 3 ;
         RSHT G 2 A_Startsound("Weapons/riotpumpup");
@@ -63,5 +67,22 @@ class DFDCombatShotgun : DoomedForDeathWeapon replaces Shotgun
         Spawn:
         RTGR A -1;
         Stop;
+    }
+}
+
+class ShottyPuff : BulletPuff
+{
+    Default
+    {
+        DamageType "Shotgun";
+    }
+    States
+    {
+    Spawn:
+    	PUFF A 4 Bright;
+		PUFF B 4;
+	Melee:
+		PUFF CD 4;
+		Stop;
     }
 }
