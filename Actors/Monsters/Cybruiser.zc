@@ -41,11 +41,11 @@ Class Cybruiser : BaronOfHell
     CBRU AB 10 A_Look();
     Loop;
   See:
-    CBRU A 1 A_Playsound("monster/bruwlk");
+    CBRU A 1 A_StartSound("monster/bruwlk");
     CBRU A 2 A_Chase();
     CBRU A 3 A_Chase();
     CBRU BB 3 A_Chase();
-    CBRU C 1 A_Playsound("monster/bruwlk");
+    CBRU C 1 A_StartSound("monster/bruwlk");
     CBRU C 2 A_Chase();
     CBRU C 3 A_Chase();
     CBRU DD 3 A_Chase();

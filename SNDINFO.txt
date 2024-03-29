@@ -25,6 +25,12 @@ weapons/riotpumpdown	PUMP1
 
 weapons/riotpumpup	PUMP2
 
+DSSHELL1 DSSHELL1
+DSSHELL2 DSSHELL2
+DSSHELL3 DSSHELL3
+
+$random Shotgun/Casing {DSSHELL1 DSSHELL2 DSSHELL3}
+
 
 $random Weapons/HeavyPistolFire { HPIST1 HPIST2 HPIST3 }
 HPIST1	PFIRE_01

@@ -8,7 +8,7 @@ class UnluckyMarine : PlayerPawn
 		Height 56;
 		Mass 100;
 		PainChance 255;
-        Player.ForwardMove 0.85, 0.9;
+        Player.ForwardMove 0.85, 0.85;
 		Player.DisplayName "DoomedMarine";
 		Player.CrouchSprite "PLYC";
         player.jumpz 10;

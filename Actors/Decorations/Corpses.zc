@@ -32,7 +32,7 @@ class MarineCorpse : Actor replaces Deadmarine
             A_SpawnItemEx("Blood");
             A_SpawnItemEx("Blood");
             A_SpawnItemEx("Blood");
-            A_Playsound("misc/gibbed");
+            A_StartSound("misc/gibbed");
         }
         Stop;
         XDeath:
@@ -46,7 +46,7 @@ class MarineCorpse : Actor replaces Deadmarine
             A_SpawnItemEx("Blood");
             A_SpawnItemEx("Blood");
             A_SpawnItemEx("Blood");
-            A_Playsound("misc/gibbed");
+            A_StartSound("misc/gibbed");
         }
         Stop;
     }
